@@ -1,9 +1,10 @@
+#include <stm32f10x.h>    
 #include "lib.h"
 
-void wait (void)
+void wait (int delay)
 {
   int  d;
-  for (d = 0; d < FAST_SPEED; d++);
+  for (d = 0; d < delay; d++);
 }
 
 void init(void)
@@ -18,15 +19,15 @@ void initPort(void)
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	
     MOTOR_PORT_B.GPIO_Mode = GPIO_Mode_Out_PP; 
     MOTOR_PORT_B.GPIO_Speed = GPIO_Speed_2MHz;
-		MOTOR_PORT_B.GPIO_Pin = PIN_8 | PIN_9;
-		GPIO_Init(MOTOR_PORT , &MOTOR_PORT_B);
+		MOTOR_PORT_B.GPIO_Pin = GPIOB_MASK;
+		GPIO_Init(GPIOB , &MOTOR_PORT_B);
 
     GPIO_InitTypeDef      MOTOR_PORT_A;
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);	
     MOTOR_PORT_A.GPIO_Mode = GPIO_Mode_Out_PP; 
     MOTOR_PORT_A.GPIO_Speed = GPIO_Speed_2MHz;
-		MOTOR_PORT_A.GPIO_Pin = PIN_1 | PIN_2;
-		GPIO_Init(MOTOR_PORT , &MOTOR_PORT_A);
+		MOTOR_PORT_A.GPIO_Pin = GPIOA_MASK;
+		GPIO_Init(GPIOA, &MOTOR_PORT_A);
 }
 
 void reset(void)
